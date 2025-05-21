@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: students-create-deployment
+  labels:
+    app: students-create
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: students-create
+  template:
+    metadata:
+      labels:
+        app: students-create
+    spec:
+      containers:
+        - name: students-create
+          image: hamiltonlg/students-create-service:sha-0235980
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongo-service:27017
